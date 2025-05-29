@@ -108,3 +108,4 @@ C:\Users\tmskd\Desktop\C\aspApp\obj\Debug\net8.0\refint\aspApp.dll
 C:\Users\tmskd\Desktop\C\aspApp\obj\Debug\net8.0\aspApp.pdb
 C:\Users\tmskd\Desktop\C\aspApp\obj\Debug\net8.0\aspApp.genruntimeconfig.cache
 C:\Users\tmskd\Desktop\C\aspApp\obj\Debug\net8.0\ref\aspApp.dll
+C:\Users\tmskd\Desktop\C\aspApp\obj\Debug\net8.0\aspApp.sourcelink.json
