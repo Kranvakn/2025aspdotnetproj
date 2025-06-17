@@ -3,24 +3,19 @@
     Layout = null;
 }
 
+@* @if ((bool?)ViewBag.LoginSuccess == true) *@
 @if (null != ViewBag.LoginSuccess && (bool)ViewBag.LoginSuccess)
 {
     <script>
         window.onload = () => {
-            const overlay = document.createElement("div");
-            overlay.className = "overlay";
-
-            const dialog = document.createElement("div");
-            dialog.className = "messageBox";
-            dialog.innerHTML = `
-                <h2>환영합니다.</h2>
-                <p>로그인에 성공하셨습니다.</p>
-                <button onclick="window.location.href='/Todo/Index'" class="login-btn">확인</button>
-                `;
-
-            overlay.appendChild(dialog);
-            document.body.appendChild(overlay);
-        }
+            showMessageBox(
+                "로그인 성공",
+                "로그인에 성공했습니다.",
+                () => {
+                    window.location.href = "/Todo/Index";
+                }, false
+            );
+        };
     </script>
 }
 
@@ -33,6 +28,7 @@
     <title>로그인</title>
     <!-- 스타일 -->
     <link rel="stylesheet" href="~/css/login.css" />
+    <link rel="stylesheet" href="~/css/messageBox.css" />
 </head>
 
 <body>
@@ -88,6 +84,7 @@
             </button>
         </form>
     </div>
+    <script src="@(Url.Content("~/js/messageBox.js"))"></script>
 </body>
 
 </html>

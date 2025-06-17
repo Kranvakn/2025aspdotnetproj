@@ -56,9 +56,18 @@ namespace todoApp.Services
         // 할 일 삭제
         public async Task DeleteTodo(string userId, int id)
         {
+            if (id == -1)
+            {
+                // 만약 id가 -1면 해당 유저의 완료된 할 일을 모두 삭제
+                _context.TodoItems.RemoveRange(_context.TodoItems.Where(t => t.UserId == userId && t.IsDone == true));
+                await _context.SaveChangesAsync();
+                return;
+            }
+
             var todoItem = await _context.TodoItems.FirstOrDefaultAsync(t =>
                 (t.UserId == userId) && (t.Id == id)
             );
+
             if (todoItem != null)
             {
                 _context.TodoItems.Remove(todoItem);

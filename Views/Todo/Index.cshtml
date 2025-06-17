@@ -1,25 +1,47 @@
 ﻿@{
     var todoList = Model as IEnumerable<todoApp.Models.TodoItem>;
 }
-@{
-    ViewData["Title"] = "Home Page";
-}
 
+<script>
+    function showDeleteConfirm(todoId, title, message) {
+        showMessageBox(
+            title,
+            message,
+            () => {
+                if (todoId === -1) {
+                    // 일괄 삭제
+                    document.getElementById("commonDeleteForm").submit();
+                    form.querySelector('input[name="IdDone"]').value = true;
+                } else {
+                    // 개별 삭제
+                    const form = document.getElementById("commonDeleteForm");
+                    form.querySelector('input[name="Id"]').value = todoId;
+                    form.submit();
+                }
+            }
+        );
+    }
+</script>
+
+<link rel="stylesheet" href="~/css/messageBox.css" />
 <h2>할 일 목록</h2>
 <p>할 일을 추가하고 관리하세요.</p>
 <hr>
 @* 일괄삭제 *@
 <div class="d-flex align-items-center justify-content-end mb-3" style="gap: 10px;">
-    <form method="post" asp-controller="Todo" asp-action="DeleteTodo" class="m-0 d-flex align-items-center">
-        <button class="btn btn-danger d-flex align-items-center" type="submit"
-            style="gap: 6px; font-size: 1rem; padding: 6px 14px;">
-            <svg width="20" height="20" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z"
-                    fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
-            </svg>
-            <span style="font-size: 1.1rem; font-weight: 500;">완료 항목 일괄 삭제</span>
-        </button>
+    <button class="btn btn-danger d-flex align-items-center" type="button"
+        onclick="showDeleteConfirm(-1, '모두 삭제', '완료된 할 일들을 모두 삭제하시겠습니까?')"
+        style="gap: 6px; font-size: 1rem; padding: 6px 14px;">
+        <svg width="20" height="20" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z"
+                fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
+        </svg>
+        <span style="font-size: 1.1rem; font-weight: 500;">완료 항목 일괄 삭제</span>
+    </button>
+    <form id="commonDeleteForm" method="post" action="/Todo/DeleteTodo" style="display:none;">
+        <input type="hidden" name="Id" value="-1" />
+        <input type="hidden" name="IsDone" value="true" />
     </form>
 </div>
 @* 생성 *@
@@ -103,20 +125,21 @@
                                 </svg>
                             </button>
                         </form>
-                        <form method="post" asp-controller="Todo" asp-action="DeleteTodo" class="m-0">
-                            <input type="hidden" name="Id" value="@todo.Id" />
-                            <button class="btn btn-danger" type="submit">
-                                <svg width="20" height="20" viewBox="0 0 15 15" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z"
-                                        fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
-                                </svg>
-                            </button>
+                        <button class="btn btn-danger" type="submit"
+                            onclick="showDeleteConfirm(@todo.Id, '삭제 확인', '정말로 이 할 일을 삭제하시겠습니까?')">
+                            <svg width="20" height="20" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z"
+                                    fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                        <form id="commonDeleteForm" method="post" action="/Todo/DeleteTodo" style="display:none;">
+                            <input type="hidden" name="Id" />
                         </form>
                     </div>
                 </td>
             </tr>
         }
                 }
+        <script src="@(Url.Content("~/js/messageBox.js"))"></script>
     </tbody>

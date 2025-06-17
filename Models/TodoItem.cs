@@ -1,5 +1,3 @@
-
-
 namespace todoApp.Models
 {
     // 할 일 상세 정보
@@ -21,6 +19,5 @@ namespace todoApp.Models
 
         // 할 일 완료 여부(기본값: false)
         public bool IsDone { get; set; } = false;
-
     }
 }

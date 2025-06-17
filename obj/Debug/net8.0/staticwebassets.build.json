@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "1Gh9u8DT+WN7wgj6E6UQQh2BbDBBMQWs/EjnO80tiCk=",
+  "Hash": "6Cuj1eYaodW75RkAik1PFB1HwGWHuj2ZDD6xZPgHnGA=",
   "Source": "aspApp",
   "BasePath": "_content/aspApp",
   "Mode": "Default",
@@ -74,6 +74,25 @@
       "OriginalItemSpec": "wwwroot\\css\\login.css"
     },
     {
+      "Identity": "C:\\Users\\tmskd\\Desktop\\C\\aspApp\\wwwroot\\css\\messageBox.css",
+      "SourceId": "aspApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\tmskd\\Desktop\\C\\aspApp\\wwwroot\\",
+      "BasePath": "_content/aspApp",
+      "RelativePath": "css/messageBox.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\messageBox.css"
+    },
+    {
       "Identity": "C:\\Users\\tmskd\\Desktop\\C\\aspApp\\wwwroot\\css\\signin.css",
       "SourceId": "aspApp",
       "SourceType": "Discovered",
@@ -129,6 +148,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\tmskd\\Desktop\\C\\aspApp\\wwwroot\\js\\messageBox.js",
+      "SourceId": "aspApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\tmskd\\Desktop\\C\\aspApp\\wwwroot\\",
+      "BasePath": "_content/aspApp",
+      "RelativePath": "js/messageBox.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\messageBox.js"
     },
     {
       "Identity": "C:\\Users\\tmskd\\Desktop\\C\\aspApp\\wwwroot\\js\\site.js",

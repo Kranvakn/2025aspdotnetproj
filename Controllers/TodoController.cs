@@ -78,6 +78,7 @@ public class TodoController : Controller
     public async Task<IActionResult> DeleteTodo()
     {
         var userId = HttpContext.Session.GetString("UserId");
+        var idDone = HttpContext.Request.Form["IdDone"].ToString();
         if (string.IsNullOrEmpty(userId))
         {
             return RedirectToAction("Login", "Account");
@@ -88,6 +89,12 @@ public class TodoController : Controller
             await _todoService.DeleteTodo(userId, todoId);
         }
 
+        if (bool.TryParse(idDone, out bool isDone))
+        {
+            await _todoService.DeleteTodo(userId, -1);
+        }
+
+        TempData["DeleteConfirm"] = true; // 삭제 확인 메시지 출력
         return RedirectToAction("Index");
     }
 

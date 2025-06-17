@@ -14,7 +14,7 @@ public class AccountController : Controller
         _userService = userService;
     }
 
-    // 회원가입 페이지 
+    // 회원가입 페이지
     [HttpGet]
     public IActionResult Register()
     {

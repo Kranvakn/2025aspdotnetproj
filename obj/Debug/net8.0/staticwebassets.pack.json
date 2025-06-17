@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\css\\login.css"
     },
     {
+      "Id": "C:\\Users\\tmskd\\Desktop\\C\\aspApp\\wwwroot\\css\\messageBox.css",
+      "PackagePath": "staticwebassets\\css\\messageBox.css"
+    },
+    {
       "Id": "C:\\Users\\tmskd\\Desktop\\C\\aspApp\\wwwroot\\css\\signin.css",
       "PackagePath": "staticwebassets\\css\\signin.css"
     },
@@ -19,6 +23,10 @@
     {
       "Id": "C:\\Users\\tmskd\\Desktop\\C\\aspApp\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\tmskd\\Desktop\\C\\aspApp\\wwwroot\\js\\messageBox.js",
+      "PackagePath": "staticwebassets\\js\\messageBox.js"
     },
     {
       "Id": "C:\\Users\\tmskd\\Desktop\\C\\aspApp\\wwwroot\\js\\site.js",

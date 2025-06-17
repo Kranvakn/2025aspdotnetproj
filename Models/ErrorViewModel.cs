@@ -6,5 +6,4 @@ namespace todoApp.Models
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
     }
-
 }
