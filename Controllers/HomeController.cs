@@ -45,7 +45,22 @@ public class HomeController : Controller
             fruits.OrderBy(f => f.Length).ThenBy(f => f).ToList();
         */
 
-        return View();
+        // 자동 로그인 쿠키 확인
+        if (!HttpContext.Session.Keys.Contains("UserId"))
+        {
+            if (Request.Cookies.TryGetValue("AutoLogin", out var userId))
+            {
+                HttpContext.Session.SetString("UserId", userId);
+                return RedirectToAction("Index", "Todo");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+
+        // 세션이 이미 존재할 경우 바로 Todo로 이동
+        return RedirectToAction("Index", "Todo");
     }
 
     public async Task<string> GetMsg()

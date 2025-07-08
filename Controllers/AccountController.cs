@@ -91,12 +91,19 @@ public class AccountController : Controller
     [HttpGet]
     public IActionResult Login()
     {
+        if (Request.Cookies.TryGetValue("AutoLogin", out var userId))
+        {
+            HttpContext.Session.SetString("UserId", userId);
+
+            return RedirectToAction("Index", "Todo");
+        }
         return View();
     }
 
     // 로그인 처리
     [HttpPost]
-    public async Task<IActionResult> Login(string email, string password)
+    [ActionName("LoginPost")]
+    public async Task<IActionResult> LoginPost(string email, string password, bool rememberMe)
     {
         var user = await _userService.FindByEmailAsync(email);
 
@@ -113,6 +120,19 @@ public class AccountController : Controller
             return View();
         }
 
+        if (true == rememberMe)
+        {
+            // 쿠키 생성
+            var cookieOptions = new CookieOptions
+            {
+                Expires = DateTimeOffset.UtcNow.AddDays(30),
+                HttpOnly = true,
+                Secure = true, // HTTPS만 사용하는 경우에
+                IsEssential = true,
+            };
+            Response.Cookies.Append("AutoLogin", user.Id.ToString(), cookieOptions);
+        }
+
         // 로그인 성공: 세션에 사용자 ID 저장
         HttpContext.Session.SetString("UserId", user.Id.ToString());
 
@@ -120,7 +140,7 @@ public class AccountController : Controller
 
         // return RedirectToAction("Index", "Todo");
         ViewBag.LoginSuccess = true; // <<< boolean값은 return으로 반환 금지
-        return View();
+        return View("Login");
     }
 
     // 로그아웃 처리
@@ -128,6 +148,13 @@ public class AccountController : Controller
     {
         // 세션 초기화
         HttpContext.Session.Clear();
+
+        // 자동로그인 쿠키 삭제
+        if (Request.Cookies.ContainsKey("AutoLogin"))
+        {
+            Response.Cookies.Delete("AutoLogin");
+        }
+
         return RedirectToAction("Login", "Account");
     }
 }

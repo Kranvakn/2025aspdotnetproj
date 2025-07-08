@@ -17,7 +17,17 @@ public class TodoController : Controller
         var userId = HttpContext.Session.GetString("UserId");
         if (string.IsNullOrEmpty(userId))
         {
-            return RedirectToAction("Login", "Account");
+            // 자동 로그인 쿠키가 있는지 확인
+            if (Request.Cookies.TryGetValue("AutoLogin", out var cookieUserId))
+            {
+                // 쿠키에서 사용자 ID 가져오기
+                userId = cookieUserId;
+                HttpContext.Session.SetString("UserId", userId);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
         // 로그인 된 유저의 todo 리스트 가져오기

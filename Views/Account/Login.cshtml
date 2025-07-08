@@ -1,9 +1,8 @@
 @{
-    ViewBag.Title = "TODO APP - 로그인";
+    ViewBag.Title = "TODO APP";
     Layout = null;
 }
 
-@* @if ((bool?)ViewBag.LoginSuccess == true) *@
 @if (null != ViewBag.LoginSuccess && (bool)ViewBag.LoginSuccess)
 {
     <script>
@@ -47,7 +46,7 @@
             <p style="color: red">@ViewBag.Error</p>
         }
 
-        <form method="post" asp-controller="Account" asp-action="Login">
+        <form method="post" asp-controller="Account" asp-action="LoginPost">
             <div class="input-group">
                 <!-- 이메일 -->
                 <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -69,7 +68,7 @@
             </div>
 
             <div class="extra-options">
-                <label><input type="checkbox" /> 로그인 유지</label>
+                <label><input type="checkbox" name="rememberMe" /> 로그인 유지</label>
                 <label><a href="#">비밀번호를 잊으셨나요?</a></label>
                 <label><a href="/Account/Register">회원가입</a></label>
             </div>
