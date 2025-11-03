@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using todoApp.Models;
 using todoApp.Services;
 
 public class TodoController : Controller
@@ -30,9 +31,57 @@ public class TodoController : Controller
             }
         }
 
+        var initGroupNo = "0";
+
         // 로그인 된 유저의 todo 리스트 가져오기
-        var todoList = await _todoService.GetTodoListAsync(userId);
-        return View(todoList);
+        var todoList = await _todoService.GetTodoListAsync(userId, initGroupNo);
+        var todoGroups = await _todoService.GetTodoGroupsAsync(userId);
+
+        var vm = new TodoIndexVM { Items = todoList, Groups = todoGroups };
+        return View(vm);
+    }
+
+    // 할일 그룹 추가
+    [HttpPost]
+    public async Task<IActionResult> CreateGroup()
+    {
+        var todoGroup = Request.Form["todoGroup"].ToString();
+
+        if (string.IsNullOrEmpty(todoGroup))
+        {
+            ViewBag.ErrorGroup = "그룹의 이름을 입력해주세요.";
+            return View("Index");
+        }
+        else if (todoGroup.Length > 20)
+        {
+            ViewBag.ErrorGroup = "20자 이하로 입력해주세요.";
+            return View("Index");
+        }
+
+        var userId = HttpContext.Session.GetString("UserId");
+        if (string.IsNullOrEmpty(userId))
+        {
+            return RedirectToAction("Login", "Account");
+        }
+
+        await _todoService.AddTodoGroup(userId, todoGroup);
+        return RedirectToAction("Index");
+    }
+
+    public async Task<IActionResult> GetTodoListByGroupNo(string GroupNo)
+    {
+        var userId = HttpContext.Session.GetString("UserId");
+        if (string.IsNullOrEmpty(userId))
+        {
+            return RedirectToAction("Login", "Account");
+        }
+
+        // 그룹에 해당하는 todo 리스트 가져오기
+        var todoList = await _todoService.GetTodoListAsync(userId, GroupNo);
+        var todoGroups = await _todoService.GetTodoGroupsAsync(userId);
+
+        var vm = new TodoIndexVM { Items = todoList, Groups = todoGroups };
+        return View("Index", vm);
     }
 
     // 할일 추가
@@ -40,6 +89,7 @@ public class TodoController : Controller
     public async Task<IActionResult> Create()
     {
         var todoText = Request.Form["todoText"].ToString();
+        var groupNo = Request.Form["GroupNo"].ToString();
 
         if (string.IsNullOrEmpty(todoText))
         {
@@ -58,7 +108,7 @@ public class TodoController : Controller
             return RedirectToAction("Login", "Account");
         }
 
-        await _todoService.AddTodo(userId, todoText);
+        await _todoService.AddTodo(userId, todoText, groupNo);
         return RedirectToAction("Index");
     }
 

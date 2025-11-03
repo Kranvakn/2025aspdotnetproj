@@ -11,8 +11,11 @@ namespace todoApp.Models
         // 고유 번호
         public int Id { get; set; }
 
-        // 어느 리스트의 속한 항목인가(TodoList.Id와 연결)
+        // 어느 리스트의 속한 항목인가
         public required string UserId { get; set; }
+
+        // 어느 그룹에 속한 항목인가
+        public required string GroupNo { get; set; }
 
         // 할 일 내용
         public required string Content { get; set; }

@@ -6,51 +6,43 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace aspApp.Migrations
 {
     /// <inheritdoc />
-    public partial class ChangeUserIdToAutoIncrement : Migration
+    public partial class ChangeTodoGroupUserIdToString : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder
-                .AlterColumn<int>(
-                    name: "Id",
-                    table: "Users",
-                    type: "int",
-                    nullable: false,
-                    oldClrType: typeof(string),
-                    oldType: "varchar(255)"
-                )
-                .Annotation(
-                    "MySql:ValueGenerationStrategy",
-                    MySqlValueGenerationStrategy.IdentityColumn
-                )
-                .OldAnnotation("MySql:CharSet", "utf8mb4");
+            migrationBuilder.DropTable(name: "TodoLists");
 
             migrationBuilder
                 .CreateTable(
-                    name: "TodoItems",
+                    name: "todoGroup",
                     columns: table => new
                     {
-                        Id = table
+                        GroupNo = table
                             .Column<int>(type: "int", nullable: false)
                             .Annotation(
                                 "MySql:ValueGenerationStrategy",
                                 MySqlValueGenerationStrategy.IdentityColumn
                             ),
                         UserId = table
-                            .Column<string>(type: "longtext", nullable: false)
+                            .Column<string>(type: "varchar(128)", maxLength: 128, nullable: false)
                             .Annotation("MySql:CharSet", "utf8mb4"),
-                        Content = table
-                            .Column<string>(type: "longtext", nullable: false)
+                        Title = table
+                            .Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
                             .Annotation("MySql:CharSet", "utf8mb4"),
-                        IsDone = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     },
                     constraints: table =>
                     {
-                        table.PrimaryKey("PK_TodoItems", x => x.Id);
+                        table.PrimaryKey("PK_todoGroup", x => x.GroupNo);
                     }
                 )
                 .Annotation("MySql:CharSet", "utf8mb4");
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(name: "todoGroup");
 
             migrationBuilder
                 .CreateTable(
@@ -63,10 +55,10 @@ namespace aspApp.Migrations
                                 "MySql:ValueGenerationStrategy",
                                 MySqlValueGenerationStrategy.IdentityColumn
                             ),
-                        UserId = table
+                        Title = table
                             .Column<string>(type: "longtext", nullable: false)
                             .Annotation("MySql:CharSet", "utf8mb4"),
-                        Title = table
+                        UserId = table
                             .Column<string>(type: "longtext", nullable: false)
                             .Annotation("MySql:CharSet", "utf8mb4"),
                     },
@@ -76,29 +68,6 @@ namespace aspApp.Migrations
                     }
                 )
                 .Annotation("MySql:CharSet", "utf8mb4");
-        }
-
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(name: "TodoItems");
-
-            migrationBuilder.DropTable(name: "TodoLists");
-
-            migrationBuilder
-                .AlterColumn<string>(
-                    name: "Id",
-                    table: "Users",
-                    type: "varchar(255)",
-                    nullable: false,
-                    oldClrType: typeof(int),
-                    oldType: "int"
-                )
-                .Annotation("MySql:CharSet", "utf8mb4")
-                .OldAnnotation(
-                    "MySql:ValueGenerationStrategy",
-                    MySqlValueGenerationStrategy.IdentityColumn
-                );
         }
     }
 }

@@ -6,7 +6,6 @@ namespace todoApp.Models
     // 유저 정보
     public class User
     {
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // 기본키, 자동 증가
         // 아이디 {get set} 읽기 쓰기 모두 가능하며, get만 하면 읽기 전용이 됨
@@ -19,6 +18,5 @@ namespace todoApp.Models
         // 비밀번호(HASH로 저장)
         [Required]
         public string PasswordHash { get; set; } = string.Empty;
-
     }
 }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "6Cuj1eYaodW75RkAik1PFB1HwGWHuj2ZDD6xZPgHnGA=",
+  "Hash": "TQee0fvj7Zng/Qi9MzyywgkKEi1FGPf7apQgXaQpzl4=",
   "Source": "aspApp",
   "BasePath": "_content/aspApp",
   "Mode": "Default",
@@ -53,6 +53,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\tmskd\\Desktop\\C\\aspApp\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\aspApp.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\tmskd\\Desktop\\C\\aspApp\\wwwroot\\css\\index.css",
+      "SourceId": "aspApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\tmskd\\Desktop\\C\\aspApp\\wwwroot\\",
+      "BasePath": "_content/aspApp",
+      "RelativePath": "css/index.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\index.css"
     },
     {
       "Identity": "C:\\Users\\tmskd\\Desktop\\C\\aspApp\\wwwroot\\css\\login.css",

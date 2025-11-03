@@ -13,20 +13,36 @@ namespace todoApp.Services
             _context = context;
         }
 
-        // 로그인된 유저의 할 일 목록을 가져옴
-        public async Task<List<TodoItem>> GetTodoListAsync(string userId)
+        // 로그인된 유저의 할 일 그룹을 가져옴
+        public async Task<List<TodoGroup>> GetTodoGroupsAsync(string userId)
         {
-            // 여기 아직 리스트 구현안됨.
-            return await _context.TodoItems.Where(t => t.UserId == userId).ToListAsync();
+            return await _context.TodoGroups.Where(t => t.UserId == userId).ToListAsync();
+        }
+
+        // 할 일 그룹 추가
+        public async Task AddTodoGroup(string userId, string groupName)
+        {
+            var todoGroup = new TodoGroup { Title = groupName, UserId = userId };
+            _context.TodoGroups.Add(todoGroup);
+            await _context.SaveChangesAsync();
+        }
+
+        // 로그인된 유저의 할 일 목록을 가져옴
+        public async Task<List<TodoItem>> GetTodoListAsync(string userId, string groupNo)
+        {
+            return await _context
+                .TodoItems.Where(t => t.UserId == userId && t.GroupNo == groupNo)
+                .ToListAsync();
         }
 
         // 할 일 추가
-        public async Task AddTodo(string userId, string content)
+        public async Task AddTodo(string userId, string content, string groupNo)
         {
             var todoItem = new TodoItem
             {
                 UserId = userId,
                 Content = content,
+                GroupNo = groupNo,
                 IsDone = false,
             };
             _context.TodoItems.Add(todoItem);
@@ -59,7 +75,9 @@ namespace todoApp.Services
             if (id == -1)
             {
                 // 만약 id가 -1면 해당 유저의 완료된 할 일을 모두 삭제
-                _context.TodoItems.RemoveRange(_context.TodoItems.Where(t => t.UserId == userId && t.IsDone == true));
+                _context.TodoItems.RemoveRange(
+                    _context.TodoItems.Where(t => t.UserId == userId && t.IsDone == true)
+                );
                 await _context.SaveChangesAsync();
                 return;
             }

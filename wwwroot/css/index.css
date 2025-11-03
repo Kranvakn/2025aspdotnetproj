@@ -1,0 +1,67 @@
+/* 왼쪽 패널 */
+.leftPannel {
+  margin-right: 20px;
+  float: left;
+  width: 30%;
+  height: 100%;
+  overflow-y: auto;
+  border-right: 1px solid #ddd;
+  padding-right: 20px;
+  box-sizing: border-box;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.todo-group-item {
+  border: none;
+  border-bottom: 1px solid #f1f3f5;
+  height: 60px;
+  padding: 0 10px;
+}
+
+.todo-group-item:hover {
+  background-color: #f1f3f5;
+}
+
+.list-group-item:hover .theme-delete-btn {
+  display: inline-block;
+}
+
+.todo-group-title {
+  color: #222;
+  font-weight: 500;
+}
+
+.theme-delete-btn {
+  display: none;
+}
+
+.todo-link {
+  display: block;
+  padding: 10px 0;
+  text-decoration: none;
+  color: inherit;
+}
+
+.todo-link:hover {
+  background-color: transparent;
+}
+
+/* 오른쪽 패널 */
+.rightPannel {
+  float: right;
+  width: 70%;
+  height: 100%;
+  overflow-y: auto;
+  padding-left: 20px;
+  box-sizing: border-box;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

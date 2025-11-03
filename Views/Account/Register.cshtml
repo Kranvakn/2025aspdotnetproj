@@ -2,7 +2,7 @@
 
 @{
     // 페이지 타이틀 및 레이아웃 설정
-    ViewBag.Title = "TODO APP - 회원가입";
+    ViewBag.Title = "TODO APP - 会員登録";
     Layout = null;
 }
 
@@ -19,9 +19,9 @@
             const dialog = document.createElement("div");
             dialog.className = "messageBox";
             dialog.innerHTML = `
-                            <h2>회원가입 성공</h2>
-                            <p>회원가입에 성공하셨습니다. 로그인 페이지로 이동합니다.</p>
-                            <button onclick="window.location.href='/Account/Login'" class="login-btn">로그인</button>
+                            <h2>会員登録成功</h2>
+                            <p>会員登録に成功しました。ログインページに移動します。</p>
+                            <button onclick="window.location.href='/Account/Login'" class="login-btn">ログイン</button>
                         `;
 
             overlay.appendChild(dialog);
@@ -35,7 +35,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>회원가입</title>
+    <title>会員登録</title>
     <!-- 외부 스타일시트 참조 -->
     <link rel="stylesheet" href="~/css/signin.css" />
 </head>
@@ -50,7 +50,7 @@
                     fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
             </svg>
         </h2>
-        <h2>회원가입</h2>
+        <h2>会員登録</h2>
 
         <!-- 에러 메시지 표시 -->
         @if (ViewBag.Error != null)
@@ -69,7 +69,7 @@
                             fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
                     </svg>
                 </span>
-                <input type="email" asp-for="Email" placeholder="이메일 주소" required />
+                <input type="email" asp-for="Email" placeholder="メールアドレス" required />
             </div>
 
             <!-- 패스워드 입력 -->
@@ -81,7 +81,7 @@
                             fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
                     </svg>
                 </span>
-                <input type="password" asp-for="PasswordHash" placeholder="패스워드" required />
+                <input type="password" asp-for="PasswordHash" placeholder="パスワード" required />
             </div>
 
             <!-- 패스워드 확인 입력 -->
@@ -93,15 +93,15 @@
                             fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
                     </svg>
                 </span>
-                <input type="password" placeholder="패스워드 확인" required />
+                <input type="password" placeholder="パスワード確認" required />
             </div>
 
             <!-- 회원가입 버튼 -->
-            <button type="submit" class="login-btn">회원가입</button>
+            <button type="submit" class="login-btn">会員登録</button>
 
             <!-- 로그인 페이지 이동 링크 -->
             <div class="extra-options center">
-                <a href="/Account/Login">이미 계정이 있으신가요?</a>
+                <a href="/Account/Login">すでにアカウントをお持ちですか？</a>
             </div>
         </form>
     </div>

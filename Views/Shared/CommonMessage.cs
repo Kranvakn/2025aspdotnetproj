@@ -8,29 +8,38 @@ namespace todoApp.Common
 
         public static string MessageNo1(string value)
         {
-            return "비밀번호는 " + value + "를 포함해야 합니다.";
+            return "パスワードは " + value + "を含める必要があります。";
         }
 
         public static string MessageNo2(string value1, string value2)
         {
-            return "비밀번호는 " + value1 + "자 " + value2 + "이어야 합니다.";
+            return "パスワードは " + value1 + "文字 " + value2 + "である必要があります。";
         }
 
         public static string MessageNo3()
         {
-            return "이미 사용중인 이메일 입니다.";
+            return "既に使用中のメールアドレスです。";
         }
 
         public static string MessageNo4()
         {
-            return "이메일 또는 비밀번호가 올바르지 않습니다";
+            return "メールアドレスまたはパスワードが正しくありません。";
         }
 
-        public static void PrintMessage(string title, string message, bool enableCalcelBtn)
+        /*
+        * value1: 名前
+        * value2: 数
+        */
+        public static string MessageNo5(string value1, string value2)
+        {
+            return $"{value1}は最大{value2}個まで生成できます。";
+        }
+
+        public static void PrintMessage(string title, string message, bool enableCancelBtn)
         {
             TitleKey = title;
             MessageKey = message;
-            EnableCancelBtn = enableCalcelBtn;
+            EnableCancelBtn = enableCancelBtn;
         }
     }
 }

@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using todoApp.Common;
 using todoApp.Models;
 using todoApp.Services;
 using todoApp.Utils;
-using todoApp.Common;
 
 public class AccountController : Controller
 {
@@ -41,40 +41,39 @@ public class AccountController : Controller
             ViewBag.Error = CommonMessage.MessageNo3();
             return View();
         }
-
         // 비밀번호 유효성 검사
         if (8 > PasswordHash.Length)
         {
-            ViewBag.Error = CommonMessage.MessageNo2("8", "이상");
+            ViewBag.Error = CommonMessage.MessageNo2("8", "以上");
             return View();
         }
         else if (20 < PasswordHash.Length)
         {
-            ViewBag.Error = CommonMessage.MessageNo2("20", "이하");
+            ViewBag.Error = CommonMessage.MessageNo2("20", "以下");
             return View();
         }
 
         if (!PasswordHash.Any(char.IsDigit))
         {
-            ViewBag.Error = CommonMessage.MessageNo1("숫자");
+            ViewBag.Error = CommonMessage.MessageNo1("数字");
             return View();
         }
 
         if (!PasswordHash.Any(char.IsUpper))
         {
-            ViewBag.Error = CommonMessage.MessageNo1("대문자");
+            ViewBag.Error = CommonMessage.MessageNo1("大文字");
             return View();
         }
 
         if (!PasswordHash.Any(char.IsLower))
         {
-            ViewBag.Error = CommonMessage.MessageNo1("소문자");
+            ViewBag.Error = CommonMessage.MessageNo1("小文字");
             return View();
         }
 
         if (!PasswordHash.Any("!@#$%^&*()_+[]{}|;':\",.<>?/`~".Contains))
         {
-            ViewBag.Error = CommonMessage.MessageNo1("특수문자");
+            ViewBag.Error = CommonMessage.MessageNo1("特殊文字");
             return View();
         }
 
@@ -110,17 +109,17 @@ public class AccountController : Controller
         if (null == user)
         {
             ViewBag.Error = CommonMessage.MessageNo4();
-            return View();
+            return View("Login");
         }
 
         var hashedPassword = Hash.setHashPassword(password);
         if (hashedPassword != user.PasswordHash)
         {
             ViewBag.Error = CommonMessage.MessageNo4();
-            return View();
+            return View("Login");
         }
 
-        if (true == rememberMe)
+        if (rememberMe)
         {
             // 쿠키 생성
             var cookieOptions = new CookieOptions
@@ -136,11 +135,8 @@ public class AccountController : Controller
         // 로그인 성공: 세션에 사용자 ID 저장
         HttpContext.Session.SetString("UserId", user.Id.ToString());
 
-        // 로그인 후 할 일 목록 페이지로 리디렉션
-
-        // return RedirectToAction("Index", "Todo");
-        ViewBag.LoginSuccess = true; // <<< boolean값은 return으로 반환 금지
-        return View("Login");
+        // 로그인 성공 → Todo 목록 페이지로
+        return RedirectToAction("Index", "Todo");
     }
 
     // 로그아웃 처리
