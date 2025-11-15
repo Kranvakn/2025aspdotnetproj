@@ -68,7 +68,7 @@ public class TodoController : Controller
         return RedirectToAction("Index");
     }
 
-    public async Task<IActionResult> GetTodoListByGroupNo(string GroupNo)
+    public async Task<IActionResult> GetTodoListByGroupNo(string id)
     {
         var userId = HttpContext.Session.GetString("UserId");
         if (string.IsNullOrEmpty(userId))
@@ -77,29 +77,37 @@ public class TodoController : Controller
         }
 
         // 그룹에 해당하는 todo 리스트 가져오기
-        var todoList = await _todoService.GetTodoListAsync(userId, GroupNo);
+        var selectedGroupNo = id;
+        var todoList = await _todoService.GetTodoListAsync(userId, selectedGroupNo);
         var todoGroups = await _todoService.GetTodoGroupsAsync(userId);
 
-        var vm = new TodoIndexVM { Items = todoList, Groups = todoGroups };
+        var vm = new TodoIndexVM
+        {
+            Items = todoList,
+            Groups = todoGroups,
+            SelectedGroupNo = selectedGroupNo,
+        };
         return View("Index", vm);
     }
 
     // 할일 추가
     [HttpPost]
-    public async Task<IActionResult> Create()
+    public async Task<IActionResult> Create(string groupNo, string todoText)
     {
-        var todoText = Request.Form["todoText"].ToString();
-        var groupNo = Request.Form["GroupNo"].ToString();
-
-        if (string.IsNullOrEmpty(todoText))
+        if (string.IsNullOrEmpty(groupNo))
         {
-            ViewBag.Error = "텍스트를 입력해주세요.";
-            return View("Index");
+            TempData["Error"] = "グループを選択してください。";
+            return RedirectToAction("GetTodoListByGroupNo", new { id = groupNo });
+        }
+        else if (string.IsNullOrEmpty(todoText))
+        {
+            TempData["Error"] = "テキストを入力してください。";
+            return RedirectToAction("GetTodoListByGroupNo", new { id = groupNo });
         }
         else if (todoText.Length > 100)
         {
-            ViewBag.Error = "100자 이하로 입력해주세요.";
-            return View("Index");
+            TempData["Error"] = "100文字以下で入力してください。";
+            return RedirectToAction("GetTodoListByGroupNo", new { id = groupNo });
         }
 
         var userId = HttpContext.Session.GetString("UserId");
@@ -109,12 +117,12 @@ public class TodoController : Controller
         }
 
         await _todoService.AddTodo(userId, todoText, groupNo);
-        return RedirectToAction("Index");
+        return RedirectToAction("GetTodoListByGroupNo", new { id = groupNo });
     }
 
     // 완료 전환
     [HttpPost]
-    public async Task<IActionResult> Done()
+    public async Task<IActionResult> Done(string selectedGroupNo)
     {
         var userId = HttpContext.Session.GetString("UserId");
         var todoText = Request.Form["Content"].ToString();
@@ -129,13 +137,14 @@ public class TodoController : Controller
         {
             return RedirectToAction("Login", "Account");
         }
-        await _todoService.UpdateTodo(userId, todoText, todoId, true);
-        return RedirectToAction("Index");
+
+        await _todoService.UpdateTodo(userId, todoText, todoId, true, selectedGroupNo);
+        return RedirectToAction("GetTodoListByGroupNo", new { id = selectedGroupNo });
     }
 
     // 할일 삭제
     [HttpPost]
-    public async Task<IActionResult> DeleteTodo()
+    public async Task<IActionResult> DeleteTodo(string selectedGroupNo)
     {
         var userId = HttpContext.Session.GetString("UserId");
         var idDone = HttpContext.Request.Form["IdDone"].ToString();
@@ -146,16 +155,16 @@ public class TodoController : Controller
 
         if (int.TryParse(Request.Form["Id"], out int todoId))
         {
-            await _todoService.DeleteTodo(userId, todoId);
+            await _todoService.DeleteTodo(userId, todoId, selectedGroupNo);
         }
 
         if (bool.TryParse(idDone, out bool isDone))
         {
-            await _todoService.DeleteTodo(userId, -1);
+            await _todoService.DeleteTodo(userId, -1, selectedGroupNo);
         }
 
         TempData["DeleteConfirm"] = true; // 삭제 확인 메시지 출력
-        return RedirectToAction("Index");
+        return RedirectToAction("GetTodoListByGroupNo", new { id = selectedGroupNo });
     }
 
     // // 체크박스 클릭 이벤트
