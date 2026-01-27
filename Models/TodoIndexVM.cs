@@ -4,6 +4,6 @@ namespace todoApp.Models
     {
         public IEnumerable<TodoItem> Items { get; set; } = Enumerable.Empty<TodoItem>();
         public IEnumerable<TodoGroup> Groups { get; set; } = Enumerable.Empty<TodoGroup>();
-        public string? SelectedGroupNo { get; set; }
+        public int? SelectedGroupNo { get; set; }
     }
 }

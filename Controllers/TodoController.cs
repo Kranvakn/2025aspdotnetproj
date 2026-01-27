@@ -31,7 +31,7 @@ public class TodoController : Controller
             }
         }
 
-        var initGroupNo = "0";
+        var initGroupNo = 0;
 
         // 로그인 된 유저의 todo 리스트 가져오기
         var todoList = await _todoService.GetTodoListAsync(userId, initGroupNo);
@@ -68,7 +68,7 @@ public class TodoController : Controller
         return RedirectToAction("Index");
     }
 
-    public async Task<IActionResult> GetTodoListByGroupNo(string id)
+    public async Task<IActionResult> GetTodoListByGroupNo(int id)
     {
         var userId = HttpContext.Session.GetString("UserId");
         if (string.IsNullOrEmpty(userId))
@@ -92,9 +92,9 @@ public class TodoController : Controller
 
     // 할일 추가
     [HttpPost]
-    public async Task<IActionResult> Create(string groupNo, string todoText)
+    public async Task<IActionResult> Create(int groupNo, string todoText)
     {
-        if (string.IsNullOrEmpty(groupNo))
+        if (groupNo == 0)
         {
             TempData["Error"] = "グループを選択してください。";
             return RedirectToAction("GetTodoListByGroupNo", new { id = groupNo });
@@ -122,7 +122,7 @@ public class TodoController : Controller
 
     // 완료 전환
     [HttpPost]
-    public async Task<IActionResult> Done(string selectedGroupNo)
+    public async Task<IActionResult> Done(int selectedGroupNo)
     {
         var userId = HttpContext.Session.GetString("UserId");
         var todoText = Request.Form["Content"].ToString();
@@ -144,7 +144,7 @@ public class TodoController : Controller
 
     // 할일 삭제
     [HttpPost]
-    public async Task<IActionResult> DeleteTodo(string selectedGroupNo)
+    public async Task<IActionResult> DeleteTodo(int selectedGroupNo)
     {
         var userId = HttpContext.Session.GetString("UserId");
         var idDone = HttpContext.Request.Form["IdDone"].ToString();
@@ -165,6 +165,18 @@ public class TodoController : Controller
 
         TempData["DeleteConfirm"] = true; // 삭제 확인 메시지 출력
         return RedirectToAction("GetTodoListByGroupNo", new { id = selectedGroupNo });
+    }
+
+    public async Task<IActionResult> DeleteTodoGroup(int SelectedGroupNo)
+    {
+        var userId = HttpContext.Session.GetString("UserId");
+        if (string.IsNullOrEmpty(userId))
+        {
+            return RedirectToAction("Login", "Account");
+        }
+
+        await _todoService.DeleteTodoGroup(userId, SelectedGroupNo);
+        return RedirectToAction("Index");
     }
 
     // // 체크박스 클릭 이벤트

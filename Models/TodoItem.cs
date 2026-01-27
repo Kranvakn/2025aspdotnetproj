@@ -15,12 +15,18 @@ namespace todoApp.Models
         public required string UserId { get; set; }
 
         // 어느 그룹에 속한 항목인가
-        public required string GroupNo { get; set; }
+        public required int GroupNo { get; set; }
 
         // 할 일 내용
         public required string Content { get; set; }
 
         // 할 일 완료 여부(기본값: false)
         public bool IsDone { get; set; } = false;
+
+        // 할 일 추가 날짜
+        public required string AddDate { get; set; }
+
+        // 할 일 완료 날짜
+        public required string DoneDate { get; set; }
     }
 }

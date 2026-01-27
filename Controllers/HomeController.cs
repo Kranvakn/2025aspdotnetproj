@@ -25,15 +25,6 @@ public class HomeController : Controller
         var list = new List<string>();
 
         var filter = list.Where(x => x.StartsWith("a")).ToList();
-        // foreach (var f in list)
-        // {
-        //     Console.WriteLine($"list 값 {f}");
-        // }y
-        // filter.ForEach(x => list.Add("X"));
-        // foreach (var f in list)
-        // {
-        //     Console.WriteLine($"list 값 {f}");
-        // }
         var res = GetMsg();
         /*
             filter -> Where
