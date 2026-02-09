@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tmskd\\Desktop\\C\\aspApp\\aspApp.csproj": {}
+    "C:\\Users\\tmskd\\Desktop\\C#\\aspApp\\aspApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tmskd\\Desktop\\C\\aspApp\\aspApp.csproj": {
+    "C:\\Users\\tmskd\\Desktop\\C#\\aspApp\\aspApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tmskd\\Desktop\\C\\aspApp\\aspApp.csproj",
+        "projectUniqueName": "C:\\Users\\tmskd\\Desktop\\C#\\aspApp\\aspApp.csproj",
         "projectName": "aspApp",
-        "projectPath": "C:\\Users\\tmskd\\Desktop\\C\\aspApp\\aspApp.csproj",
+        "projectPath": "C:\\Users\\tmskd\\Desktop\\C#\\aspApp\\aspApp.csproj",
         "packagesPath": "C:\\Users\\tmskd\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tmskd\\Desktop\\C\\aspApp\\obj\\",
+        "outputPath": "C:\\Users\\tmskd\\Desktop\\C#\\aspApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\tmskd\\AppData\\Roaming\\NuGet\\NuGet.Config"

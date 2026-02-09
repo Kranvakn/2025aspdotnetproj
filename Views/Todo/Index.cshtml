@@ -128,7 +128,7 @@
         <div style="max-height: 500px; overflow-y: auto;">
             <table class="table">
                 <tbody>
-                    @if (selectedGroupNo == null)
+                    @if (selectedGroupNo == null) 
                     {
                         <tr>
                             <td colspan="4" class="text-center"><h1>タスクグループを選択してください。</h1></td>
@@ -172,7 +172,7 @@
                             }
                             else
                             {
-                                <td style="width:30%">@todo.Content</td>
+                                <td style="width:30%; height:65px;">@todo.Content</td>
                                 <td style="width:7%">
                                     <svg width="30" height="30" viewBox="0 0 15 15" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
